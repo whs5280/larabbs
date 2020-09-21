@@ -20,7 +20,7 @@ class EnsureEmailIsVerified
         // 2.并且还未认证 Email
         // 3.并且访问的不是 email 验证相关 URL 或者退出的 URL。
         if ($request->user() &&
-            !$request->user()->hasVerifiedEmail &&
+            !$request->user()->hasVerifiedEmail() &&
             !$request->is('email/*', 'logout')) {
 
             return $request->expectsJson()
