@@ -15,6 +15,6 @@ class CategoryController extends Controller
             ->where('category_id', $category->id)
             ->with('user', 'category')   // 预加载防止 N+1 问题
             ->paginate(20);
-        return view('topics.index', compact($category, $topics));
+        return view('topics.index', compact('category', 'topics'));
     }
 }

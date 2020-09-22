@@ -20,7 +20,12 @@
 
                 <!-- Right Side Of Navbar -->
                 @if(\Illuminate\Support\Facades\Auth::check())
-                    <li class="nav-item dropdown" style="list-style: none;">
+                    <li class="nav-item dropdown" style="list-style: none;color: #777">
+                        <li class="nav-item" style="list-style: none;">
+                            <a class="nav-link mt-1 mr-3 font-weight-bold" href="{{ route('topics.create') }}">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                        </li>
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <img src="{{ Auth::user()->avatar }}" class="img-responsive img-circle" width="30px" height="30px">
                             {{ Auth::user()->name }}
