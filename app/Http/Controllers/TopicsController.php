@@ -7,6 +7,7 @@ use App\Models\Topic;
 use Illuminate\Http\Request;
 use App\Http\Requests\TopicRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class TopicsController extends Controller
 {
