@@ -8,6 +8,11 @@ class Topic extends Model
         'title', 'body', 'category_id', 'excerpt', 'slug'
     ];
 
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class,'user_id', 'id');
@@ -24,6 +29,7 @@ class Topic extends Model
         switch ($order) {
             case 'recent':
                 $query->recent();
+                break;
 
             default:
                 $query->recentReplied();
