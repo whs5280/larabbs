@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Traits\ActiveUserHelper;
+use App\Models\Traits\LastActivedAtHelper;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\MustVerifyEmail;
@@ -12,6 +14,7 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable
 {
     use ActiveUserHelper;
+    use LastActivedAtHelper;
     use HasRoles;
     use Notifiable,MustVerifyEmail;
 
