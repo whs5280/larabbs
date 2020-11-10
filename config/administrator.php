@@ -56,22 +56,22 @@ return array(
     ],
 
     /*
-     * 权限控制的回调函数。
-     *
-     * 此回调函数需要返回 true 或 false ，用来检测当前用户是否有权限访问后台。
-     * `true` 为通过，`false` 会将页面重定向到 `login_path` 选项定义的 URL 中。
-     */
+    * 权限控制的回调函数。
+    *
+    * 此回调函数需要返回 true 或 false ，用来检测当前用户是否有权限访问后台。
+    * `true` 为通过，`false` 会将页面重定向到 `login_path` 选项定义的 URL 中。
+    */
     'permission' => function () {
         // 只要是能管理内容的用户，就允许访问后台
         return Auth::check() && Auth::user()->can('manage_contents');
     },
 
     /*
-     * 使用布尔值来设定是否使用后台主页面。
-     *
-     * 如值为 `true`，将使用 `dashboard_view` 定义的视图文件渲染页面；
-     * 如值为 `false`，将使用 `home_page` 定义的菜单条目来作为后台主页。
-     */
+    * 使用布尔值来设定是否使用后台主页面。
+    *
+    * 如值为 `true`，将使用 `dashboard_view` 定义的视图文件渲染页面；
+    * 如值为 `false`，将使用 `home_page` 定义的菜单条目来作为后台主页。
+    */
     'use_dashboard' => false,
 
     // 设置后台主页视图文件，由 `use_dashboard` 选项决定
@@ -94,7 +94,4 @@ return array(
 
     // 可选的语言，如果不为空，将会在页面顶部显示『选择语言』按钮
     'locales' => [],
-
-    // 路由地址
-    'custom_routes_file' => app_path('Http/routes/administrator.php'),
 );

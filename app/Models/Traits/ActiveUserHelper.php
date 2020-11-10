@@ -2,6 +2,8 @@
 
 namespace App\Models\Traits;
 
+use App\Models\Reply;
+use App\Models\Topic;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
