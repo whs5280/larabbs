@@ -8,7 +8,7 @@
     https://learnku.com/courses/laravel-intermediate-training/9.x
 
 ## 较大的变动
-- 升级版本 6.2 => 9
+- 升级版本 6.2 => 8
 
 ## 后续添加的功能模块：
 - 第三方授权登陆
@@ -21,7 +21,7 @@
 ## 环境需求
 
 * Composer
-* PHP >= 8.0
+* PHP >= 7.3
 * OpenSSL PHP 扩展
 * PDO PHP 扩展
 * Mysql 5.7+
