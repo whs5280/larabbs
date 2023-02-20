@@ -2,11 +2,35 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Arr;
+
 class Topic extends Model
 {
     protected $fillable = [
         'title', 'body', 'category_id', 'excerpt', 'slug'
     ];
+
+    public function toESArray()
+    {
+        // 只取出需要的字段
+        $arr = Arr::only($this->toArray(), [
+            'id',
+            'title',
+            'user_id',
+            'category_id',
+            'reply_count',
+            'view_count',
+            'last_reply_user_id',
+            'order',
+            //'excerpt',
+            //'slug',
+            'created_at'
+        ]);
+
+        $arr['created_at'] = date('Y-m-d H:m:s', $this->created_at);
+
+        return $arr;
+    }
 
     public function replies()
     {
