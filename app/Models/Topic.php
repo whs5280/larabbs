@@ -29,6 +29,11 @@ class Topic extends Model
 
         $arr['created_at'] = date('Y-m-d H:m:s', $this->created_at->timestamp);
 
+        // category关联
+        $arr['category'] = Arr::only($this->category->toArray(), ['name']);
+        // user关联
+        $arr['user'] = Arr::only($this->user->toArray(), ['name', 'avatar']);
+
         return $arr;
     }
 

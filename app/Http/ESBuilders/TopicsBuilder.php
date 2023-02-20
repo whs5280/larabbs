@@ -62,10 +62,6 @@ class TopicsBuilder extends BaseBuilder
             'user_id' => [
                 'type' => 'integer'
             ],
-            'category' => [
-                'type' => 'text',
-                'analyzer' => 'douhao'
-            ],
             'category_id' => [
                 'type' => 'integer'
             ],
@@ -84,7 +80,33 @@ class TopicsBuilder extends BaseBuilder
             'created_at' => [
                 'type' => 'date',
                 "format" => "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
-            ]
+            ],
+            // category关联
+            'category'  => [
+                'type' => 'nested',
+                'properties' => [
+                    'name'  => [
+                        'type'            => 'keyword',
+                        'copy_to'         => 'category_name',
+                    ],
+                ]
+            ],
+            // user关联
+            'user'  => [
+                'type' => 'nested',
+                'properties' => [
+                    'name'  => [
+                        'type'            => 'text',
+                        'analyzer'        => 'ik_smart',
+                        //'search_analyzer' => 'ik_smart_synonym',
+                        'copy_to'         => 'user_name',
+                    ],
+                    'avatar' => [
+                        'type'            => 'keyword',
+                        'copy_to'         => 'user_avatar',
+                    ]
+                ]
+            ],
         ];
     }
 
