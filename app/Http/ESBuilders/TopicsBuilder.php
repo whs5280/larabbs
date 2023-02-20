@@ -7,6 +7,16 @@ use Illuminate\Support\Facades\Artisan;
 class TopicsBuilder extends BaseBuilder
 {
     /**
+     * 设置索引名称
+     *
+     * TopicsBuilder constructor.
+     */
+    public function __construct()
+    {
+        $this->table(self::getAliasName());
+    }
+
+    /**
      * 获取索引名称
      *
      * @return string
@@ -72,7 +82,8 @@ class TopicsBuilder extends BaseBuilder
                 'type' => 'integer'
             ],
             'created_at' => [
-                'type' => 'date'
+                'type' => 'date',
+                "format" => "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
             ]
         ];
     }

@@ -27,7 +27,7 @@ class Topic extends Model
             'created_at'
         ]);
 
-        $arr['created_at'] = date('Y-m-d H:m:s', $this->created_at);
+        $arr['created_at'] = date('Y-m-d H:m:s', $this->created_at->timestamp);
 
         return $arr;
     }

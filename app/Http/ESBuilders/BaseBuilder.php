@@ -16,7 +16,7 @@ class BaseBuilder
      * @var array
      */
     protected $params = [
-        'index' => 'posts',
+        'index' => '',
         'type'  => '_doc',
         'body'  => [
             'query' => [
@@ -31,12 +31,24 @@ class BaseBuilder
     ];
 
     /**
+     * 索引表名
+     *
+     * @param string $name
+     * @return $this
+     */
+    public function table(string $name)
+    {
+        $this->params['index'] = $name;
+        return $this;
+    }
+
+    /**
      * 查询的字段，默认全部
      *
      * @param array $field
      * @return $this|array
      */
-    public function select(array $field) : array
+    public function select(array $field)
     {
         $this->params['_source'] = $field;
 
@@ -50,7 +62,7 @@ class BaseBuilder
      * @param $page
      * @return $this|array
      */
-    public function paginate($size, $page) : array
+    public function paginate($size, $page)
     {
         $this->params['body']['from'] = ($page - 1) * $size;
         $this->params['body']['size'] = $size;
@@ -65,7 +77,7 @@ class BaseBuilder
      * @param $direction
      * @return $this|array
      */
-    public function orderBy($field, $direction) : array
+    public function orderBy($field, $direction)
     {
         if (!isset($this->params['body']['sort'])) {
             $this->params['body']['sort'] = [];
@@ -80,7 +92,7 @@ class BaseBuilder
      *
      * @return array
      */
-    public function getParams() : array
+    public function getParams()
     {
         return $this->params;
     }

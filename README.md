@@ -34,4 +34,5 @@
 * npm install
 * 修改.env文件，关于邮件发送请参考官网文档配置（修改.env以及email.php）
 * 启动mysql，创建数据库，执行 php artisan migrate:refresh
+* 同步ES数据，执行 php artisan es:migrate
 ```
