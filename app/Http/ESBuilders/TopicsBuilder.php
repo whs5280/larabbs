@@ -81,6 +81,10 @@ class TopicsBuilder extends BaseBuilder
                 'type' => 'date',
                 "format" => "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
             ],
+            'updated_at' => [
+                'type' => 'date',
+                "format" => "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
+            ],
             // category关联
             'category'  => [
                 'type' => 'nested',

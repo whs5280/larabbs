@@ -24,7 +24,8 @@ class Topic extends Model
             'order',
             //'excerpt',
             //'slug',
-            'created_at'
+            'created_at',
+            'updated_at'
         ]);
 
         $arr['created_at'] = date('Y-m-d H:m:s', $this->created_at->timestamp);
