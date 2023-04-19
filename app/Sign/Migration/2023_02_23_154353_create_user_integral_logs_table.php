@@ -16,7 +16,7 @@ class CreateUserIntegralLogsTable extends Migration
         Schema::create('user_integral_logs', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->tinyInteger('integral_type')->comment('10签到;2连续签到;3补签');
+            $table->tinyInteger('integral_type')->comment('10签到;20连续签到;30补签');
             $table->integer('integral')->comment('积分,有正负之分');
             $table->string('desc')->nullable()->comment('描述');
             $table->timestamps();
