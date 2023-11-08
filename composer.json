@@ -13,6 +13,7 @@
         "fideloper/proxy": "^4.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "intervention/image": "^2.5",
+        "jonahgeorge/jaeger-client-php": "*",
         "laravel/framework": "^8.0",
         "laravel/horizon": "^5.0",
         "laravel/tinker": "^2.0",

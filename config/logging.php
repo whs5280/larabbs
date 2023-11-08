@@ -101,4 +101,10 @@ return [
         ],
     ],
 
+
+    'jaeger' => [
+        'host'  => env('JAEGER_AGENT_HOST', '127.0.0.1'),
+        'port'  => env('JAEGER_AGENT_PORT', '16686'),
+        'name'  => env('JAEGER_SERVICE_NAME', 'lara-bbs')
+    ]
 ];
