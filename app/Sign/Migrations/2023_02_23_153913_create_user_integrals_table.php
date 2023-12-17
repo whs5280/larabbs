@@ -23,7 +23,7 @@ class CreateUserIntegralsTable extends Migration
             $table->index('user_id');
         });
 
-        \DB::statement("ALTER TABLE `'user_integrals` comment '用户积分'");
+        //\DB::statement("ALTER TABLE `'user_integrals` comment '用户积分'");
     }
 
     /**

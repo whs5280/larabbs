@@ -22,7 +22,7 @@ class CreateUserSignLogsTable extends Migration
             $table->timestamps();
         });
 
-        \DB::statement("ALTER TABLE `user_sign_logs` comment '用户签到明细'");
+        //\DB::statement("ALTER TABLE `user_sign_logs` comment '用户签到明细'");
     }
 
     /**

@@ -22,7 +22,7 @@ class CreateUserIntegralLogsTable extends Migration
             $table->timestamps();
         });
 
-        \DB::statement("ALTER TABLE `user_integral_logs` comment '用户积分明细'");
+        //\DB::statement("ALTER TABLE `user_integral_logs` comment '用户积分明细'");
     }
 
     /**
