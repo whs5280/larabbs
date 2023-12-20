@@ -99,6 +99,14 @@ return [
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
         ],
+
+        'sql' => [
+            'driver' => 'daily',
+            'path'   => storage_path('logs/sql.log'),
+            'level' => 'debug',
+            'days'  => 14,
+            'replace_placeholders' => true,
+        ],
     ],
 
 
@@ -106,5 +114,11 @@ return [
         'host'  => env('JAEGER_AGENT_HOST', '127.0.0.1'),
         'port'  => env('JAEGER_AGENT_PORT', '16686'),
         'name'  => env('JAEGER_SERVICE_NAME', 'lara-bbs')
-    ]
+    ],
+
+
+    'query' => [
+        'enabled'     => env('DB_QUERY_LOG_ENABLE', true),
+        'slower_than' => env('DB_QUERY_LOG_SLOWER_THAN', 0.1)
+    ],
 ];
