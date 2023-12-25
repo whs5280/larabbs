@@ -176,6 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Sign\SignServiceProvider::class,
         App\Providers\DbServiceProvider::class,
+        App\Lottery\LotteryServiceProvider::class,
     ],
 
     /*

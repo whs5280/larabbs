@@ -1,0 +1,61 @@
+<?php
+
+namespace App\Lottery;
+
+
+use App\Lottery\Http\Middleware\Lock;
+use Illuminate\Support\ServiceProvider;
+
+class LotteryServiceProvider extends ServiceProvider
+{
+    /**
+     * Register services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+
+    }
+
+    /**
+     * Bootstrap services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        if ($this->app->runningInConsole()) {
+            $this->loadMigrationsFrom(__DIR__ . '/Migrations');
+        }
+        $this->loadTranslationsFrom(__DIR__ . '/Translations', 'lottery');
+        $this->loadRoutesFrom(__DIR__ . '/routes.php');
+
+        $this->addMiddlewareAlias('lock', Lock::class);
+
+        $this->commands([
+            Commands\HandlePrizeCount::class,
+        ]);
+    }
+
+    /**
+     * Register a short-hand name for a middleware. For compatibility
+     * with Laravel < 5.4 check if aliasMiddleware exists since this
+     * method has been renamed.
+     *
+     * @param string $name
+     * @param string $class
+     *
+     * @return void
+     */
+    protected function addMiddlewareAlias(string $name, string $class)
+    {
+        $router = $this->app['router'];
+
+        if (method_exists($router, 'aliasMiddleware')) {
+            return $router->aliasMiddleware($name, $class);
+        }
+
+        return $router->middleware($name, $class);
+    }
+}
