@@ -6,9 +6,9 @@ trait ApiHelper
 {
     public function error($message, $httpCode = 400, $statusCode = 422)
     {
-        return response()->setStatusCode($httpCode)->json([
+        return response()->json([
             'message'    => $message,
-            'statusCode' => $statusCode
-        ]);
+            'statusCode' => $statusCode,
+        ])->setStatusCode($httpCode);
     }
 }

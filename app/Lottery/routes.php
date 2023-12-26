@@ -18,7 +18,7 @@ Route::namespace('App\Lottery\Http\Controllers')
     ->prefix('api')
     ->group(function () {
 
-        Route::post('lottery/prize/{prize:id}', 'DrawPrizeController@lottery')->name('lottery.prize')
+        Route::post('lottery/prize/{prize}', 'DrawPrizeController@lottery')->name('lottery.prize')
             ->middleware(['lock:lottery,2']);
 
 });
