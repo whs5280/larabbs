@@ -43,5 +43,9 @@ class AppServiceProvider extends ServiceProvider
 
             return $builder->build();
         });
+
+        // 加载第三方配置文件
+        $path = app_path('ThirdParty/third.php');
+        $this->mergeConfigFrom($path, 'third');
     }
 }
