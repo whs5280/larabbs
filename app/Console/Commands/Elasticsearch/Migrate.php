@@ -3,6 +3,7 @@
 namespace App\Console\Commands\Elasticsearch;
 
 use App\Http\ESBuilders\TopicsBuilder;
+use App\Http\ESBuilders\UserBuilder;
 use Illuminate\Console\Command;
 
 class Migrate extends Command
@@ -23,11 +24,12 @@ class Migrate extends Command
     protected $es;
 
     /**
-     * 数据表对应的索引类数组
+     * 数据表对应的索引类数组, 此处追加索引
      * @var string[]
      */
     protected $indices = [
         TopicsBuilder::class,
+        UserBuilder::class,
     ];
 
     /**

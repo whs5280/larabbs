@@ -7,10 +7,17 @@ use App\Models\Traits\LastActivedAtHelper;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\MustVerifyEmail;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Spatie\Permission\Traits\HasRoles;
 
+/**
+ * @property mixed $id
+ * @property int $notification_count
+ * @property mixed $unreadNotifications
+ * @property mixed $created_at
+ */
 class User extends Authenticatable
 {
     use ActiveUserHelper;
@@ -45,17 +52,17 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function topics()
+    public function topics(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Topic::class);
     }
 
-    public function isAuthorOf($model)
+    public function isAuthorOf($model): bool
     {
         return $this->id == $model->user_id;
     }
 
-    public function replies()
+    public function replies(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Reply::class);
     }
@@ -105,5 +112,24 @@ class User extends Authenticatable
         }
 
         $this->attributes['avatar'] = $path;
+    }
+
+    /**
+     * @return array
+     */
+    public function toESArray(): array
+    {
+        // 只取出需要的字段
+        $arr = Arr::only($this->toArray(), [
+            'id',
+            'name',
+            'email',
+            'created_at',
+            'avatar',
+            'introduction',
+        ]);
+
+        $arr['created_at'] = date('Y-m-d H:m:s', $this->created_at->timestamp);
+        return $arr;
     }
 }

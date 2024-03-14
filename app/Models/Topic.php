@@ -10,7 +10,10 @@ class Topic extends Model
         'title', 'body', 'category_id', 'excerpt', 'slug'
     ];
 
-    public function toESArray()
+    /**
+     * @return array
+     */
+    public function toESArray(): array
     {
         // 只取出需要的字段
         $arr = Arr::only($this->toArray(), [

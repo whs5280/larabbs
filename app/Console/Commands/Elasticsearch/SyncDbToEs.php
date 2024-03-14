@@ -4,6 +4,7 @@ namespace App\Console\Commands\Elasticsearch;
 
 
 use App\Models\Topic;
+use App\Models\User;
 use Illuminate\Console\Command;
 
 class SyncDbToEs extends Command
@@ -28,7 +29,8 @@ class SyncDbToEs extends Command
     }
 
     protected $models = [
-        'topics_online' => Topic::class
+        'topics_online' => Topic::class,
+        'users_online'  => User::class,
     ];
 
     /**
@@ -43,6 +45,9 @@ class SyncDbToEs extends Command
 
         // 获取参数
         $index = $this->argument('index');
+        if (!$index) {
+            $this->info('not index');die();
+        }
 
         $modelClass = $this->models[$index];
 

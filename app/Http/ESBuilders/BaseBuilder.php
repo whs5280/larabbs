@@ -36,7 +36,7 @@ class BaseBuilder
      * @param string $name
      * @return $this
      */
-    public function table(string $name)
+    public function table(string $name): BaseBuilder
     {
         $this->params['index'] = $name;
         return $this;
@@ -46,9 +46,9 @@ class BaseBuilder
      * 查询的字段，默认全部
      *
      * @param array $field
-     * @return $this|array
+     * @return $this
      */
-    public function select(array $field)
+    public function select(array $field): BaseBuilder
     {
         $this->params['_source'] = $field;
 
@@ -60,9 +60,9 @@ class BaseBuilder
      *
      * @param $size
      * @param $page
-     * @return $this|array
+     * @return $this
      */
-    public function paginate($size, $page)
+    public function paginate($size, $page): BaseBuilder
     {
         $this->params['body']['from'] = ($page - 1) * $size;
         $this->params['body']['size'] = $size;
@@ -75,9 +75,9 @@ class BaseBuilder
      *
      * @param $field
      * @param $direction
-     * @return $this|array
+     * @return $this
      */
-    public function orderBy($field, $direction)
+    public function orderBy($field, $direction): BaseBuilder
     {
         if (!isset($this->params['body']['sort'])) {
             $this->params['body']['sort'] = [];
@@ -88,11 +88,36 @@ class BaseBuilder
     }
 
     /**
+     * 初始搜索请求带上 scroll 参数
+     * @return $this
+     */
+    public function initScroll(int $page = 10 , string $scroll = '1m'): BaseBuilder
+    {
+        $this->params['scroll'] = $scroll;
+        $this->params['size'] = $page;
+
+        return $this;
+    }
+
+    /**
+     * @param string $scrollId
+     * @param string $scroll
+     * @return string[]
+     */
+    public function continueScroll(string $scrollId, string $scroll = '1m'): array
+    {
+        return [
+            'scroll_id' => $scrollId,
+            'scroll'    => $scroll
+        ];
+    }
+
+    /**
      * 返回构造的参数体
      *
      * @return array
      */
-    public function getParams()
+    public function getParams(): array
     {
         return $this->params;
     }
