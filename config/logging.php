@@ -1,5 +1,6 @@
 <?php
 
+use App\Logging\CustomizeFormatter;
 use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;
@@ -106,6 +107,13 @@ return [
             'level' => 'debug',
             'days'  => 14,
             'replace_placeholders' => true,
+        ],
+
+        'json' => [
+            'driver' => 'single',
+            'tap' => [CustomizeFormatter::class],
+            'path' => storage_path('logs/laravel-json.log'),
+            'level' => 'debug',
         ],
     ],
 
