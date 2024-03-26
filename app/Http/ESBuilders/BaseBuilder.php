@@ -2,13 +2,21 @@
 
 namespace App\Http\ESBuilders;
 
+use App\Traits\ESResponse;
 
 class BaseBuilder
 {
+    use ESResponse;
+
     /**
      * 后缀
      */
     const INDEX_SUFFIX = '_online';
+
+    /**
+     * @var
+     */
+    protected $result;
 
     /**
      * 查询参数
@@ -134,6 +142,66 @@ class BaseBuilder
     }
 
     /**
+     * 分组查询
+     * @param string $field
+     * @param int $size
+     * @return $this
+     */
+    public function groupBy(string $field, int $size = 0): BaseBuilder
+    {
+        $this->params['size'] = $size;
+        $this->params['body']['aggs'] = [
+            'group_by_count' => [
+                'terms' => [
+                    'field' => $field,
+                ]
+            ]
+        ];
+
+        return $this;
+    }
+
+    /**
+     * 求和
+     * @param string $field
+     * @param int $size
+     * @return $this
+     */
+    public function sum(string $field, int $size = 0): BaseBuilder
+    {
+        $this->params['size'] = $size;
+        $this->params['body']['aggs'] = [
+            $field . '_sum' => [
+                'sum' => [
+                    'field' => $field,
+                ]
+            ]
+        ];
+
+        return $this;
+    }
+
+    /**
+     * 平均值
+     * @param string $field
+     * @param int $size
+     * @return $this
+     */
+    public function avg(string $field, int $size = 0): BaseBuilder
+    {
+        $this->params['size'] = $size;
+        $this->params['body']['aggs'] = [
+            $field . '_avg' => [
+                'avg' => [
+                    'field' => $field,
+                ]
+            ]
+        ];
+
+        return $this;
+    }
+
+    /**
      * 返回构造的参数体
      *
      * @return array
@@ -144,12 +212,11 @@ class BaseBuilder
     }
 
     /**
-     * 结构集
-     * @param $result
-     * @return array
+     * 搜索
      */
-    public static function getResultHits($result): array
+    public function search(): BaseBuilder
     {
-        return collect($result['hits']['hits'])->pluck('_source')->all();
+        $this->result = app('es')->search($this->getParams());
+        return $this;
     }
 }
