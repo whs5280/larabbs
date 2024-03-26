@@ -1,6 +1,6 @@
 <?php
 
-namespace App\ThirdParty\Test;
+namespace App\Logging\Test;
 
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Support\Facades\Log;

@@ -1,6 +1,7 @@
 <?php
 
-namespace App\ThirdParty\Test;
+namespace App\Models\OTS\Test;
+
 use App\Models\OTS\AliyunOTS;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Tests\CreatesApplication;
