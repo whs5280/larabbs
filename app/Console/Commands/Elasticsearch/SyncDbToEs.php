@@ -3,6 +3,7 @@
 namespace App\Console\Commands\Elasticsearch;
 
 
+use App\Models\StoreInfo;
 use App\Models\Topic;
 use App\Models\User;
 use Illuminate\Console\Command;
@@ -31,6 +32,7 @@ class SyncDbToEs extends Command
     protected $models = [
         'topics_online' => Topic::class,
         'users_online'  => User::class,
+        'stores_online' => StoreInfo::class,
     ];
 
     /**

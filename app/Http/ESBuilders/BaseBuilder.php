@@ -113,6 +113,27 @@ class BaseBuilder
     }
 
     /**
+     * 地理距离查询
+     * @param array $point
+     * @param string $distance
+     * @return BaseBuilder
+     */
+    public function geoDistanceQuery(array $point, string $distance = '200km'): BaseBuilder
+    {
+        $this->params['body']['query']['bool']['filter'][] = [
+            'geo_distance' => [
+                'distance' => $distance,
+                'location' => [
+                    'lat' => $point[0],
+                    'lon' => $point[1],
+                ]
+            ]
+        ];
+
+        return $this;
+    }
+
+    /**
      * 返回构造的参数体
      *
      * @return array
@@ -120,5 +141,15 @@ class BaseBuilder
     public function getParams(): array
     {
         return $this->params;
+    }
+
+    /**
+     * 结构集
+     * @param $result
+     * @return array
+     */
+    public static function getResultHits($result): array
+    {
+        return collect($result['hits']['hits'])->pluck('_source')->all();
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands\Elasticsearch;
 
+use App\Http\ESBuilders\StoreInfoBuilder;
 use App\Http\ESBuilders\TopicsBuilder;
 use App\Http\ESBuilders\UserBuilder;
 use Illuminate\Console\Command;
@@ -30,6 +31,7 @@ class Migrate extends Command
     protected $indices = [
         TopicsBuilder::class,
         UserBuilder::class,
+        StoreInfoBuilder::class
     ];
 
     /**
