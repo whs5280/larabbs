@@ -2,6 +2,8 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Log;
 use Throwable;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
@@ -36,6 +38,19 @@ class Handler extends ExceptionHandler
      */
     public function report(Throwable $exception)
     {
+        if (
+            !app()->runningInConsole()
+            && in_array(app()->environment(), ['local', 'testing'])
+            && $exception instanceof QueryException
+        ) {
+            Log::channel('json')->error('sql_error', [
+                'message'  =>  $exception->getMessage(),
+                'file'     =>  $exception->getFile(),
+                'line'     =>  $exception->getLine(),
+                'full_url' =>  request()->fullUrl(),
+            ]);
+            abort(500, '服务器繁忙！请稍后重试');
+        }
         parent::report($exception);
     }
 
