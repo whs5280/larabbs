@@ -3,7 +3,6 @@
 namespace App\Exceptions;
 
 use Illuminate\Database\QueryException;
-use Illuminate\Support\Facades\Log;
 use Throwable;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
@@ -43,7 +42,7 @@ class Handler extends ExceptionHandler
             && in_array(app()->environment(), ['local', 'testing'])
             && $exception instanceof QueryException
         ) {
-            Log::channel('json')->error('sql_error', [
+            logger()->channel('json')->error('sql_error', [
                 'message'  =>  $exception->getMessage(),
                 'file'     =>  $exception->getFile(),
                 'line'     =>  $exception->getLine(),

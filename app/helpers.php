@@ -52,3 +52,39 @@ function model_plural_name($model)
     // 获取子串的复数形式，例如：传参 `user` 会得到 `users`
     return Str::plural($snake_case_name);
 }
+
+/**
+ * XSS 安全过滤
+ */
+if (!function_exists('xss_safe_filter')) {
+    function xss_safe_filter($value)
+    {
+        if (empty($value)) {
+            return $value;
+        } else {
+            return is_array($value) ? array_map('xss_safe_filter', $value) : get_htmlspecialchars($value);
+        }
+    }
+}
+
+/**
+ * 获取htmlspecialchars
+ * @param $value
+ * @return string
+ */
+if (!function_exists('get_htmlspecialchars'))
+{
+    function get_htmlspecialchars($value): string
+    {
+        $no = '/%0[0-8bcef]/';
+        $value = preg_replace($no,' ', $value);
+
+        $no = '/%1[0-9a-f]/';
+        $value = preg_replace($no,' ', $value);
+
+        $no = '/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]+/S';
+        $value = preg_replace($no, ' ', $value);
+
+        return htmlspecialchars($value, ENT_QUOTES);
+    }
+}
