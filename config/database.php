@@ -147,5 +147,7 @@ return [
     'elasticsearch' => [
         // Elasticsearch 支持多台服务器负载均衡，因此这里是一个数组
         'hosts' => explode(',', env('ES_HOSTS')),
-    ]
+    ],
+
+    'sql_debug' => env('SQL_DEBUG', 0),
 ];
