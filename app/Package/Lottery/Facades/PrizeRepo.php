@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Lottery\Facades;
+namespace App\Package\Lottery\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

@@ -175,8 +175,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Sign\SignServiceProvider::class,
-        App\Providers\DbServiceProvider::class,
-        App\Lottery\LotteryServiceProvider::class,
+        App\Providers\DBServiceProvider::class,
+        App\Package\Lottery\LotteryServiceProvider::class,
     ],
 
     /*

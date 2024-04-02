@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Lottery\Repositories;
+namespace App\Package\Lottery\Repositories;
 
-use App\Lottery\Models\Prize;
+use App\Package\Lottery\Models\Prize;
 
 interface PrizeInterface
 {

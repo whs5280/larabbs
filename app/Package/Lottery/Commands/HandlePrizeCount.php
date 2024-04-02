@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Lottery\Commands;
+namespace App\Package\Lottery\Commands;
 
-use App\Lottery\Models\Prize;
-use App\Lottery\Support\CacheKey;
-use App\Lottery\Support\RedisList;
+use App\Package\Lottery\Models\Prize;
+use App\Package\Lottery\Support\CacheKey;
+use App\Package\Lottery\Support\RedisList;
 use Illuminate\Console\Command;
 
 class HandlePrizeCount extends Command
@@ -14,7 +14,7 @@ class HandlePrizeCount extends Command
      *
      * @var string
      */
-    protected $signature = 'handle-prize-count';
+    protected $signature = 'package:handle-prize-count';
 
     /**
      * The console command description.
@@ -35,8 +35,6 @@ class HandlePrizeCount extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return int
      */
     public function handle()
     {

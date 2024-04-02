@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Lottery\Support;
+namespace App\Package\Lottery\Support;
 
 class CacheKey
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Lottery\Traits;
+namespace App\Package\Lottery\Traits;
 
 trait ApiHelper
 {

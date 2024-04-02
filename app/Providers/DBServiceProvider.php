@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
 
-class DbServiceProvider extends ServiceProvider
+class DBServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.

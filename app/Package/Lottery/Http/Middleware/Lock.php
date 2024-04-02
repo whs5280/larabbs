@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Lottery\Http\Middleware;
+namespace App\Package\Lottery\Http\Middleware;
 
-use App\Lottery\Traits\ApiHelper;
+use App\Package\Lottery\Traits\ApiHelper;
 
 class Lock
 {

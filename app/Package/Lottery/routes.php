@@ -13,7 +13,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::namespace('App\Lottery\Http\Controllers')
+Route::namespace('App\Package\Lottery\Http\Controllers')
     ->middleware(['bindings'])
     ->prefix('api')
     ->group(function () {

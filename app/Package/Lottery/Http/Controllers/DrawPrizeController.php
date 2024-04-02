@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Lottery\Http\Controllers;
+namespace App\Package\Lottery\Http\Controllers;
 
-use App\Lottery\Models\Prize;
-use App\Lottery\Repositories\PrizeInterface;
-use App\Lottery\Support\CacheKey;
-use App\Lottery\Support\RedisList;
-use App\Lottery\Traits\ApiHelper;
+use App\Package\Lottery\Models\Prize;
+use App\Package\Lottery\Repositories\PrizeInterface;
+use App\Package\Lottery\Support\CacheKey;
+use App\Package\Lottery\Support\RedisList;
+use App\Package\Lottery\Traits\ApiHelper;
 use Illuminate\Routing\Controller;
 
 class DrawPrizeController extends Controller

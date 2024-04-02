@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Lottery\Models;
+namespace App\Package\Lottery\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 

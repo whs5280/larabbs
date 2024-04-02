@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Lottery;
+namespace App\Package\Lottery;
 
 
-use App\Lottery\Http\Middleware\Lock;
-use App\Lottery\Repositories\PrizeRepository;
+use App\Package\Lottery\Commands;
+use App\Package\Lottery\Http\Middleware\Lock;
+use App\Package\Lottery\Repositories\PrizeRepository;
 use Illuminate\Support\ServiceProvider;
 
 class LotteryServiceProvider extends ServiceProvider
@@ -38,7 +39,7 @@ class LotteryServiceProvider extends ServiceProvider
             Commands\HandlePrizeCount::class,
         ]);
 
-        $this->app->bind('App\Lottery\Repositories\PrizeInterface', 'App\Lottery\Repositories\PrizeRepository');
+        $this->app->bind('App\Package\Lottery\Repositories\PrizeInterface', 'App\Package\Lottery\Repositories\PrizeRepository');
         $this->app->singleton('prize-repo', function () {
             return new PrizeRepository();
         });
