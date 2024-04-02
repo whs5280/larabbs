@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Sign\Handlers;
+namespace App\Package\Sign\Handlers;
 
 use Closure;
 

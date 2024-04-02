@@ -1,9 +1,9 @@
 <?php
 
 
-namespace App\Sign\Handlers;
+namespace App\Package\Sign\Handlers;
 
-use App\Sign\Models\UserIntegralLog;
+use App\Package\Sign\Models\UserIntegralLog;
 use Closure;
 
 class SignCreditHandler implements HandlerInterface

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Sign\Models;
+namespace App\Package\Sign\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -15,10 +15,10 @@ class UserIntegralLog extends Model
     public static function generateLog($userId)
     {
         self::query()->create([
-            'user_id' => $userId,
+            'user_id'       => $userId,
             'integral_type' => self::SIGN_IN,
             'integral' => true,
-            'desc' => '今日签到',
+            'desc'     => '今日签到',
         ]);
     }
 }

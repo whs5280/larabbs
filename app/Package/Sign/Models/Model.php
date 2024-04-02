@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Sign\Models;
+namespace App\Package\Sign\Models;
 
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 

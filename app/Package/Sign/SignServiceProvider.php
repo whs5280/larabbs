@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Sign;
+namespace App\Package\Sign;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -42,7 +42,7 @@ class SignServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function addMiddlewareAlias($name, $class)
+    protected function addMiddlewareAlias(string $name, string $class)
     {
         $router = $this->app['router'];
 

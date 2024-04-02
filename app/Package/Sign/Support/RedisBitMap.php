@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Sign\Support;
+namespace App\Package\Sign\Support;
 
 class RedisBitMap
 {
@@ -42,7 +42,7 @@ class RedisBitMap
      * 获取月份日 Redis 哈希表名称
      * @return string
      */
-    public function getHashFromDateString()
+    public function getHashFromDateString(): string
     {
         return $this->cacheKey;
     }
@@ -59,7 +59,7 @@ class RedisBitMap
 
     /**
      * 设置位图值, key只支持整型
-     * @param $key
+     * @param int $key
      * @return mixed
      */
     public function set(int $key)

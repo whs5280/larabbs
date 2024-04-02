@@ -1,10 +1,10 @@
 <?php
 
 
-namespace App\Sign\Handlers;
+namespace App\Package\Sign\Handlers;
 
-use App\Sign\Models\UserSignLog;
-use App\Sign\Support\RedisBitMap;
+use App\Package\Sign\Models\UserSignLog;
+use App\Package\Sign\Support\RedisBitMap;
 use Closure;
 
 class SignUpHandler implements HandlerInterface
@@ -22,6 +22,7 @@ class SignUpHandler implements HandlerInterface
         $redis = new RedisBitMap($cacheKey);
 
         throw_if($redis->get($day), new \Exception('今日已签到'));
+
         $redis->set($day);
         UserSignLog::generateLog($user->getKey());
 
