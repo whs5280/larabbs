@@ -4,3 +4,5 @@
 
 - `Sign` [签到服务](Sign/SignServiceProvider.php)
 
+- `QueryCache` [缓存服务](QueryCache/Query/Builder.php)
+
