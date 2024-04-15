@@ -177,6 +177,7 @@ return [
         App\Package\Sign\SignServiceProvider::class,
         App\Providers\DBServiceProvider::class,
         App\Package\Lottery\LotteryServiceProvider::class,
+        App\Package\Collector\CollectorServiceProvider::class,
     ],
 
     /*

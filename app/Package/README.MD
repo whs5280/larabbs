@@ -6,3 +6,4 @@
 
 - `QueryCache` [缓存服务](QueryCache/Query/Builder.php)
 
+- `Collector` [商品链接采集器](Collector/Adapter)
