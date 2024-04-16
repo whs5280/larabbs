@@ -3,7 +3,7 @@
 namespace App\Package\Collector;
 
 /**
- * 采集器
+ * 适配器
  */
 abstract class Collector
 {
