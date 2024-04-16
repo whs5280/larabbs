@@ -54,8 +54,9 @@ class TaoBaoItem extends Collector
         }
     }
 
-    protected function formatResult($result): array
+    protected function formatResult($result): ?array
     {
+        if (empty($result)) return null;
         $item = $result['item'] ?? [];
         return [
             'title'		 =>  trim($item['title']),
