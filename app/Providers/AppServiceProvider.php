@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\ThirdParty\Service\TencentIm;
 use Elasticsearch\ClientBuilder;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
@@ -47,5 +48,10 @@ class AppServiceProvider extends ServiceProvider
         // 加载第三方配置文件
         $path = app_path('ThirdParty/third.php');
         $this->mergeConfigFrom($path, 'third');
+
+        $this->app->singleton('im', function () {
+            return new TencentIm();
+        });
+        $this->app->alias('im', TencentIm::class);
     }
 }
