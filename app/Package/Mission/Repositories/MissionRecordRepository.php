@@ -18,7 +18,7 @@ class MissionRecordRepository
 
     public function create(array $attribute)
     {
-        $this->model->query()->create($attribute);
+        return $this->model->query()->create($attribute);
     }
 
     /**
@@ -69,7 +69,7 @@ class MissionRecordRepository
     public function basePeriodQuery(MissionAcceptable $acceptable, Mission $mission)
     {
         return $this->model::acceptor($acceptable)
-            ->mission($mission)
+            ->missionFrom($mission)
             ->where(function ($query) use ($acceptable, $mission) {
                 // 任务周期条件
                 return MissionPeriod::period($mission->getMissionPeriodType())->scope($query, $acceptable, $mission);

@@ -48,27 +48,27 @@ class MissionPeriodManager
         }
     }
 
-    public function createOncePeriod(): Once
+    protected function createOncePeriod(): Once
     {
         return new Once();
     }
 
-    public function createDailyPeriod(): Daily
+    protected function createDailyPeriod(): Daily
     {
         return new Daily();
     }
 
-    public function createWeeklyPeriod(): Weekly
+    protected function createWeeklyPeriod(): Weekly
     {
         return new Weekly();
     }
 
-    public function createMonthlyPeriod(): Monthly
+    protected function createMonthlyPeriod(): Monthly
     {
         return new Monthly();
     }
 
-    public function createYearlyPeriod(): Yearly
+    protected function createYearlyPeriod(): Yearly
     {
         return new Yearly();
     }

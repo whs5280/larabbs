@@ -6,6 +6,7 @@ use App\Models\BaseModel;
 use App\Package\Mission\Contracts\MissionAcceptable;
 use App\Package\Mission\Contracts\Mission as MissionContract;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
  * @method static \Illuminate\Database\Eloquent\Builder|MissionRecord receive()
@@ -13,7 +14,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|MissionRecord reward()
  * @method static \Illuminate\Database\Eloquent\Builder|MissionRecord missionGroup(int $groupId)
  * @method static \Illuminate\Database\Eloquent\Builder|MissionRecord acceptor(MissionAcceptable $acceptable)
- * @method static \Illuminate\Database\Eloquent\Builder|MissionRecord mission(MissionContract $mission)
+ * @method static \Illuminate\Database\Eloquent\Builder|MissionRecord missionFrom(MissionContract $mission)
  */
 class MissionRecord extends BaseModel
 {
@@ -65,8 +66,21 @@ class MissionRecord extends BaseModel
      * @param MissionContract $mission
      * @return mixed
      */
-    public function scopeMission($query, MissionContract $mission)
+    public function scopeMissionFrom($query, MissionContract $mission)
     {
         return $query->where('mission_id', $mission->getKey());
+    }
+
+    public function mission(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Mission::class, 'mission_id');
+    }
+
+    /**
+     * @return MorphTo
+     */
+    public function acceptable(): MorphTo
+    {
+        return $this->morphTo('acceptable', 'acceptable_type', 'acceptable_id');
     }
 }

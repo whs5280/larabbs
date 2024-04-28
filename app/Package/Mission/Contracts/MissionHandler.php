@@ -30,6 +30,13 @@ interface MissionHandler
     public function isReward();
 
     /**
+     * 处理任务
+     *
+     * @return mixed
+     */
+    public function handle();
+
+    /**
      * 接受任务
      *
      * @return mixed
