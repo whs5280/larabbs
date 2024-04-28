@@ -5,8 +5,11 @@ namespace App\Package\Mission\Handlers;
 use App\Package\Mission\Contracts\Mission;
 use App\Package\Mission\Contracts\MissionAcceptable;
 use App\Package\Mission\Contracts\MissionHandler;
+use App\Package\Mission\Exceptions\MissionReceivedException;
+use App\Package\Mission\Exceptions\MissionRewardException;
 use App\Package\Mission\Facades\MissionPeriod;
 use App\Package\Mission\Facades\MissionRepo;
+use App\Package\Mission\Jobs\HandleMission;
 use App\Package\Mission\Models\MissionRecord;
 use Illuminate\Cache\RedisLock;
 use Illuminate\Contracts\Cache\LockTimeoutException;
@@ -192,9 +195,40 @@ abstract class AbstractHandler implements MissionHandler
             ->cacheTtl($this->acceptable, $this->mission);
     }
 
-    public function receive()
+    public function receive(): bool
     {
-        // TODO: Implement receive() method.
+        if ($this->isFinish(false)) {
+            throw new MissionReceivedException(trans('mission::msg.E405004'), 405004);
+        }
+        if (!$this->isReceived(false) && !$this->saveReceive()) {
+            throw new MissionReceivedException(trans('mission::msg.E405006'), 405006);
+        }
+        return $this->dispatchToHandle();
+    }
+
+    protected function saveReceive()
+    {
+        try {
+            return DB::transaction(function () {
+                $this->changeMissionStatus(self::MISSION_RECEIVE, true);
+                $this->saveMissionRecord(MissionRecord::STATUS_RECEIVE);
+                return true;
+            });
+        } catch (\Throwable $e) {
+            $this->changeMissionStatus(self::MISSION_RECEIVE, false);
+            logger()->error('领取任务失败：' . $e->getMessage());
+            return false;
+        }
+    }
+
+    protected function dispatchToHandle(): bool
+    {
+        if (!$this->needDispatch()) {
+            return false;
+        }
+        HandleMission::dispatch($this)->onQueue(config('app.name') . '-handle-mission');
+        $this->incrementDispatchCount();
+        return true;
     }
 
     public function finish()
@@ -250,7 +284,24 @@ abstract class AbstractHandler implements MissionHandler
 
     public function reward()
     {
-        // TODO: Implement reward() method.
+        if ($this->isReward(false)) {
+            throw new MissionRewardException(trans('mission::msg.E405001'), 405001);
+        }
+        if (!$this->isFinish(false)) {
+            throw new MissionRewardException(trans('mission::msg.E405002'), 405002);
+        }
+        try {
+            return DB::transaction(function () {
+                $this->changeMissionStatus(self::MISSION_REWARD, true);
+                $this->saveMissionRecord(MissionRecord::STATUS_REWARD);
+                Cache::put($this->getHasRewardCacheKey(), false, now()->addMonth());
+                return true;
+            });
+        } catch (\Throwable $e) {
+            $this->changeMissionStatus(self::MISSION_REWARD, false);
+            logger()->error('完成任务领奖处理失败：' . $e->getMessage());
+            throw new MissionRewardException(trans('mission::msg.E405003'), 405003);
+        }
     }
 
     protected abstract function check();

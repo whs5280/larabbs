@@ -25,5 +25,6 @@ class MissionServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->loadMigrationsFrom(__DIR__ . '/Migrations');
         }
+        $this->loadTranslationsFrom(__DIR__ . '/Translations', 'mission');
     }
 }
