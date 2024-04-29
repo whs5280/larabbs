@@ -5,6 +5,7 @@ namespace App\Package\Mission\Periods;
 use App\Package\Mission\Exceptions\MissionPeriodNotFoundException;
 use Closure;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Support\Str;
 
 /**
  * 任务周期管理器
@@ -40,7 +41,7 @@ class MissionPeriodManager
         if (isset($this->customPeriods[$name])) {
             return $this->customPeriods[$name]($this->app, $name);
         } else {
-            $method = 'create' . ucfirst($name) . 'Period';
+            $method = 'create' . Str::studly($name) . 'Period';
             if (method_exists($this, $method)) {
                 return $this->{$method}();
             }

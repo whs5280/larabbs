@@ -3,12 +3,16 @@
 namespace App\Package\Mission;
 
 use App\Package\Mission\Events\MissionFinish;
+use App\Package\Mission\Facades\MissionHandler;
 use App\Package\Mission\Handlers\MissionHandlerManager;
+use App\Package\Mission\Handlers\ShareHomePageHandler;
 use App\Package\Mission\Listeners\HandleMissionListener;
 use App\Package\Mission\Periods\MissionPeriodManager;
 use App\Package\Mission\Repositories\MissionGroupRepository;
+use App\Package\Mission\Repositories\MissionShareRecordRepository;
 use App\Package\Mission\Repositories\Repository as MissionRepositoryManager;
 use App\Package\Mission\Services\MissionService;
+use App\Package\Mission\Share\ShareManager;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 
@@ -31,6 +35,15 @@ class MissionServiceProvider extends ServiceProvider
         // 任务周期
         $this->app->singleton('mission-period', function ($app) {
             return new MissionPeriodManager($app);
+        });
+        // 任务分享器
+        $this->app->singleton('mission-share', function () {
+            return new ShareManager(new MissionShareRecordRepository());
+        });
+
+        // 扩展任务处理器
+        MissionHandler::extend('share_home_page', function () {
+            return new ShareHomePageHandler();
         });
     }
 
