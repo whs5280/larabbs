@@ -227,7 +227,7 @@ abstract class AbstractHandler implements MissionHandler
         }
     }
 
-    protected function dispatchToHandle(): bool
+    public function dispatchToHandle(): bool
     {
         if (!$this->needDispatch()) {
             return false;
