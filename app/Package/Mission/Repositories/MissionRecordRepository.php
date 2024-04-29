@@ -16,9 +16,15 @@ class MissionRecordRepository
         $this->model = new MissionRecord();
     }
 
+    /**
+     * 静态类`create` 返回的是 model
+     * 链式类`create` 返回的是 bool
+     * @param array $attribute
+     * @return mixed
+     */
     public function create(array $attribute)
     {
-        return $this->model->query()->create($attribute);
+        return MissionRecord::create($attribute);
     }
 
     /**

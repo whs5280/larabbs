@@ -5,6 +5,9 @@ namespace App\Package\Mission\Handlers;
 use App\Package\Mission\Contracts\Mission;
 use App\Package\Mission\Contracts\MissionAcceptable;
 use App\Package\Mission\Contracts\MissionHandler;
+use App\Package\Mission\Events\MissionFinish;
+use App\Package\Mission\Events\MissionReceived;
+use App\Package\Mission\Events\MissionReward;
 use App\Package\Mission\Exceptions\MissionReceivedException;
 use App\Package\Mission\Exceptions\MissionRewardException;
 use App\Package\Mission\Facades\MissionPeriod;
@@ -15,6 +18,7 @@ use Illuminate\Cache\RedisLock;
 use Illuminate\Contracts\Cache\LockTimeoutException;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Event;
 
 /**
  * 任务处理器抽象类
@@ -116,9 +120,11 @@ abstract class AbstractHandler implements MissionHandler
 
     protected function handleMission(): bool
     {
+        // 是否需要处理
         if (!$this->canHandle()) {
             return false;
         }
+        // 验证是否完成
         if (!$this->check()) {
             return false;
         }
@@ -211,7 +217,7 @@ abstract class AbstractHandler implements MissionHandler
         try {
             return DB::transaction(function () {
                 $this->changeMissionStatus(self::MISSION_RECEIVE, true);
-                $this->saveMissionRecord(MissionRecord::STATUS_RECEIVE);
+                Event::dispatch(new MissionReceived($this->saveMissionRecord(MissionRecord::STATUS_RECEIVE)));
                 return true;
             });
         } catch (\Throwable $e) {
@@ -236,7 +242,7 @@ abstract class AbstractHandler implements MissionHandler
         try {
             return DB::transaction(function () {
                 $this->changeMissionStatus(self::MISSION_FINISH, true);
-                $this->saveMissionRecord(MissionRecord::STATUS_FINISH);
+                Event::dispatch(new MissionFinish($this->saveMissionRecord(MissionRecord::STATUS_FINISH)));
                 $this->changeMissionStatus(self::MISSION_RECEIVE, false);
                 Cache::put($this->getHasRewardCacheKey(), true, now()->addMonth());
                 return true;
@@ -293,7 +299,7 @@ abstract class AbstractHandler implements MissionHandler
         try {
             return DB::transaction(function () {
                 $this->changeMissionStatus(self::MISSION_REWARD, true);
-                $this->saveMissionRecord(MissionRecord::STATUS_REWARD);
+                Event::dispatch(new MissionReward($this->saveMissionRecord(MissionRecord::STATUS_REWARD)));
                 Cache::put($this->getHasRewardCacheKey(), false, now()->addMonth());
                 return true;
             });
@@ -304,7 +310,20 @@ abstract class AbstractHandler implements MissionHandler
         }
     }
 
-    protected abstract function check();
+    public function getJumpLink()
+    {
+        return $this->mission->getMissionJumpLink();
+    }
 
-    protected abstract function isShare();
+    // 检查任务是否成功
+    public abstract function check();
+
+    // 是否显示按钮
+    public abstract function hasBtn();
+
+    // 是否为跳链
+    public abstract function isJumpLink();
+
+    // 是否需要反向
+    public abstract function isShare();
 }
