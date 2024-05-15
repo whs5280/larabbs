@@ -108,6 +108,7 @@ class BaseBuilder
     }
 
     /**
+     * 一旦您获得了_scroll_id并开始进行后续的滚动请求，每次滚动请求中都需要显式地包含查询条件
      * @param string $scrollId
      * @param string $scroll
      * @return string[]
