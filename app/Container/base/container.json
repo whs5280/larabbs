@@ -1,0 +1,8 @@
+{
+    "gold_pwd_service": {
+        "class" : "App\\ThirdParty\\Service\\GoldPwdService"
+    },
+    "trie_tree": {
+        "class": "App\\ThirdParty\\Service\\TrieTree"
+    }
+}
