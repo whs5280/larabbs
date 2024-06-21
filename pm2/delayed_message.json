@@ -1,0 +1,15 @@
+{
+    "name": "delayed_message",
+    "args": "",
+    "script": "php ../artisan rabbitmq:listen delayed_message",
+    "exec_mode": "fork",
+    "max_memory_restart": "100M",
+    "watch": [
+        "./app/Console/Commands/RabbitMQ/RabbitMQListener.php"
+    ],
+    "watch_options": {
+        "followSymlinks": false
+    },
+    "error_file" : "./../log/console/delayed_message.log",
+    "out_file"   : "./../log/console/delayed_message.log"
+}

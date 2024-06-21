@@ -88,3 +88,18 @@ if (!function_exists('get_htmlspecialchars'))
         return htmlspecialchars($value, ENT_QUOTES);
     }
 }
+
+/**
+ * 打印日志
+ */
+if (!function_exists('print_message'))
+{
+    function print_message($status = 'ERROR', $message = '', $errorMsg = '')
+    {
+        if ($errorMsg == ''){
+            printf("[%s]%s ：%s".PHP_EOL,  $status, date("Y-m-d H:i:s"), $message);
+        }else{
+            printf("[%s]%s ：%s".PHP_EOL."[errorMsg]：".$errorMsg.PHP_EOL,  $status, date("Y-m-d H:i:s"), $message);
+        }
+    }
+}

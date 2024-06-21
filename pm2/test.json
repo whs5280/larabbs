@@ -1,0 +1,15 @@
+{
+    "name": "test",
+    "args": "",
+    "script": "php ../artisan rabbitmq:listen test",
+    "exec_mode": "fork",
+    "max_memory_restart": "100M",
+    "watch": [
+        "./app/Console/Commands/RabbitMQ/RabbitMQListener.php"
+    ],
+    "watch_options": {
+        "followSymlinks": false
+    },
+    "error_file" : "./../log/console/test-err.log",
+    "out_file"   : "./../log/console/test-out.log"
+}

@@ -115,6 +115,13 @@ return [
             'path' => storage_path('logs/laravel-json.log'),
             'level' => 'debug',
         ],
+
+        'mq' => [
+            'driver' => 'single',
+            'tap' => [CustomizeFormatter::class],
+            'path' => storage_path('logs/mq.log'),
+            'level' => 'debug',
+        ],
     ],
 
 

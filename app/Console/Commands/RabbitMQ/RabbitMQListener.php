@@ -45,13 +45,14 @@ class RabbitMQListener extends Command
             }catch (\Exception $e){
                 $errorMsg = json_encode($e->getMessage());
             }
-            logger()->info($isDone ? "DONE" : "ERROR", [$message, $errorMsg]);
+            print_message($isDone ? "DONE" : "ERROR", $message->body, $errorMsg);
+            logger()->channel('mq')->info($isDone ? "DONE" : "ERROR", [$message, $errorMsg]);
         };
 
         try {
             RabbitMQHelper::TestAMQP()->listen($callback, true);
         } catch (\Throwable $e) {
-            logger()->error($e->getMessage());
+            logger()->channel('mq')->error($e->getMessage());
         }
     }
 
@@ -66,13 +67,14 @@ class RabbitMQListener extends Command
             }catch (\Exception $e){
                 $errorMsg = json_encode($e->getMessage());
             }
-            logger()->info($isDone ? "DONE" : "ERROR", [$message, $errorMsg]);
+            print_message($isDone ? "DONE" : "ERROR", $message->body, $errorMsg);
+            logger()->channel('mq')->info($isDone ? "DONE" : "ERROR", [$message, $errorMsg]);
         };
 
         try {
             RabbitMQHelper::DelayedMessageAMQP()->listen($callback, true);
         } catch (\Throwable $e) {
-            logger()->error($e->getMessage());
+            logger()->channel('mq')->error($e->getMessage());
         }
     }
 }

@@ -222,9 +222,9 @@ class RabbitMQ
             // 消息推送到路由名称为$exchange的队列当中
             $channel->basic_publish($message, $this->exchangeName, $this->routeKey);
             // 日志记录
-            logger()->info('生产者消息', [$messageBody]);
+            logger()->channel('mq')->info('生产者消息', [$messageBody]);
         } catch (\Exception $e) {
-            logger()->error('生产者队列 error message: ' . $e->getMessage());
+            logger()->channel('mq')->error('生产者队列 error message: ' . $e->getMessage());
         }
     }
 
@@ -238,7 +238,7 @@ class RabbitMQ
      */
     public function listen($callback, bool $no_ack = false): bool
     {
-        logger()->info('开始消费');
+        logger()->channel('mq')->info('开始消费');
         // 连接到 RabbitMQ 服务器并打开通道
         $channel = $this->getChannel();
         // 声明交换机和队列
@@ -254,7 +254,7 @@ class RabbitMQ
             //消息主题返回给回调函数
             $res = $callback($msg->body);
             if($res){
-                logger()->info('ack验证');
+                logger()->channel('mq')->info('ack验证');
                 //ack验证，如果消费失败了，从新获取一次数据再次消费
                 $channel->basic_ack($msg->getDeliveryTag());
             }
@@ -277,7 +277,7 @@ class RabbitMQ
                 $channel->wait();
             }
         }
-        logger()->info('ack消费完成');
+        logger()->channel('mq')->info('ack消费完成');
         return true;
     }
 
@@ -311,7 +311,7 @@ class RabbitMQ
      */
     public static function writeMessage($ableId, $ableType, $event, int $status = 0)
     {
-        logger()->channel('json')->info('写入日志', ['able_id' => $ableId, 'able_type' => $ableType, 'event' => $event, 'status' => $status]);
+        logger()->channel('mq')->info('写入日志', ['able_id' => $ableId, 'able_type' => $ableType, 'event' => $event, 'status' => $status]);
     }
 
     /**
