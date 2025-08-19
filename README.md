@@ -41,6 +41,7 @@
 - [Log JSON格式化](app/Logging/CustomizeFormatter.php)
 
 
+- [Novel 阅读器](app/ThirdParty/Service/NovelService.php)
 - [CSV 百万级导出](app/Handlers/CSVExportHandler.php)
 - [CollectorFactory 京东/淘宝/天猫](app/Package/Collector/CollectorFactory.php)
 
