@@ -179,6 +179,7 @@ return [
         App\Providers\DBServiceProvider::class,
         App\Package\Lottery\LotteryServiceProvider::class,
         App\Package\Collector\CollectorServiceProvider::class,
+        App\Package\Git\GitServiceProvider::class,
     ],
 
     /*
